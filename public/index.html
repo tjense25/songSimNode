@@ -2,14 +2,14 @@
 <html>
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
-  <script src="javascripts/main.js?v=1.0"></script>
+  <script src="javascripts/main.js?v=2.3"></script>
   <title>SongSim</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/main.css?v=0.1">
+  <link rel="stylesheet" type="text/css" href="stylesheets/main.css?v=2.0">
   <meta charset="utf-8">
 </head>
 
 <body>
-<div ng-app="myApp" ng-controller="myCtrl">
+<div ng-app="myApp" ng-controller="myCtrl" id="container">
   <div id="head">
     <h1>SongSim:</h1>
     <h2>Visualize Your Favorite Songs</h2>
@@ -36,12 +36,18 @@
 	Drawing Style: 
 	<input type="submit" class="button" value="Color" ng-click="makeColor()">
 	<input type="submit" class="button" value="Black" ng-click="makeBlack()">
-	<input type="submit" class="button" value="Randomize" ng-click="makeRandom()">
+	<input type="submit" class="button" value="Random" ng-click="makeRandom()">
    </form>
-</div>
-<div id="footer">
-	<hr>
-	<h5> SongSim intellectual property of Colin Morris <a href = https://github.com/colinmorris/SongSim>https://github.com/colinmorris/SongSim</a></h5>
+  <div id="explanation" ng-hide="explain">
+	<h1> How to Interpret a SongSim Picture: </h1><hr>
+	<h3> SongSim creates a visual representation of a self-similarity matrix formed from a given song's lyrics. So whenever you search a song, an array of words in created where array[i] is the ith word of the song. From this array a symmetric binary matrix is created where matrix[i][j] = 1 if and only if array[i] = array[j] (so the ith word of the song is the same as the jth word), and matrix[i][j] = 0 otherwise. This matrix is then drawn onto a canvas and colored corresponding to the words count of that word in the lyrics. <br> <br>
+	A simple way to interpret this image is to imagine the main diagonal running down the middle of the matrix as representing every word in the song as given in the lyrics. All points off this main diagonal represent times that that word was repeated somewhere else in the song. So, songs that are highly repetitive like Vince Staples "Yeah Right" contain a lot of repeated blocks that appear off the diagonal, while non-repetitive songs like LCD Soundsystem's "tonite" contain mainly the central diagonal. Entire blocks that are repated multiple times throughout the image typically represent the choruses, refrains, or lyrical motifs that are repeated verbatim multiple times in the song. Looking at Kelela's  "LMK", we see a distinct block repeated in the image 9 times, representing the chorus which is repeated throughout the song 3 times. </h3>
+	<img src="songSim.png" alt="examples" width = "80%" height = "300px">
+
+	<h4> SongSim intellectual property of Colin Morris <a href = https://github.com/colinmorris/SongSim>https://github.com/colinmorris/SongSim</a></h4>
+  </div>
+  <button class = "button" id="explainButton" ng-hide="hide" ng-click="explainPressed()">  {{ buttonText }}</button>
+	
 </div>
 </body>
 </html>

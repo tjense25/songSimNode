@@ -132,7 +132,9 @@ function myCtrl($scope, $http, $sce) {
 	$scope.suggestions = [];
         $scope.lyricsSearch = 0;
 	$scope.hide = true;
+	$scope.explain = true;
 	$scope.style = "black";
+	$scope.buttonText = "What Am I Seeing?"
 	$scope.getSuggestions = function() {
 		if($scope.songTitle == '') {
 			$scope.suggestions = [];
@@ -185,7 +187,9 @@ function myCtrl($scope, $http, $sce) {
 		if(index > -1) {
 			main_artist = main_artist.substring(0, index);
 		}
-		$scope.lyricsSearch = main_artist + "/" + $scope.track_name;
+		var str = main_artist + "/" + $scope.track_name;
+		str = str.replace(/é/g, "e")
+		$scope.lyricsSearch = str;
 		console.log($scope.lyricsSearch);
 		$scope.suggestions = [];
 		$scope.searchSong();
@@ -201,6 +205,16 @@ function myCtrl($scope, $http, $sce) {
 	$scope.makeRandom = function() {
 		$scope.style = "random";
 		drawMatrix($scope.matrix, $scope.style);
+	}
+	$scope.explainPressed = function() {
+		if($scope.explain){
+		  $scope.explain = false;
+		  $scope.buttonText = "Hide";
+		}
+		else {
+		  $scope.explain = true;
+		  $scope.buttonText = "What Am I Seeing?";
+		}
 	}
 }
 
