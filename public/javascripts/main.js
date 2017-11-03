@@ -151,9 +151,11 @@ function myCtrl($scope, $http, $sce) {
 	$scope.searchSong = function(){    
 		$scope.songTitle = '';
 		$scope.suggestions = [];
-		var url = 'https://api.lyrics.ovh/v1/' + $scope.lyricsSearch;
+		var url = '/searchsong?q=' + $scope.lyricsSearch;
+		console.log(url);
 		$http.get(url)
 		     .then(function onSuccess(response) {
+				console.log(response);
 				$scope.lyricsSearch = 0;
 				var data = response.data;
 				console.log(data.lyrics);
